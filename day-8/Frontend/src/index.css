@@ -26,3 +26,9 @@ body,
   max-width: 20rem;
   color: #fff;
 }
+
+.note-create-form{
+  display: flex;
+  gap: 1rem;
+  padding: 1rem 3rem;
+}
