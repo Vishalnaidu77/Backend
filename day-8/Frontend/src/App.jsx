@@ -25,7 +25,7 @@ const App = () => {
     const { title, description, type } = e.target.elements;
 
 
-    await axios.post("http://localhost:3000/notes", {
+    await axios.post("https://backend-1-xoms.onrender.com/notes", {
       title: titleInput,
       description: descriptionInput,
       type: type.value
@@ -38,12 +38,12 @@ const App = () => {
   } 
 
   const handleDelete = async (noteId) => {
-    await axios.delete(`http://localhost:3000/notes/${noteId}`)
+    await axios.delete(`https://backend-1-xoms.onrender.com/notes/${noteId}`)
     fetchData()
   }
 
   const handleUpdate = async (noteId) => {
-    await axios.patch(`http://localhost:3000/notes/${noteId}`, {
+    await axios.patch(`https://backend-1-xoms.onrender.com/notes/${noteId}`, {
       description: updatedDesc
     })
     setIsUpdate(false)
