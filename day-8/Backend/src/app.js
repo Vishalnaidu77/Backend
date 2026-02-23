@@ -59,9 +59,8 @@ app.patch("/notes/:id", async (req, res) => {
     })
 })
 
-
-app.use('*name', (req, res) => {
-    res.sendFile(path.join(__dirname, "..", "/public/index.html"))
+app.use("/*name", (req, res) => {
+    
 })
 
-module.exports = app
+module.exports = app;
