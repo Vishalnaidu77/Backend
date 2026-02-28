@@ -1,0 +1,15 @@
+=> Authentication
+    - Register (1. Save user data, 2. Give token to user)
+    - Login
+    - Logout (Token Blacklisting)
+    - [OTP Based Registration]
+
+=> Post
+    - Create
+    - Can see the feed
+    - Like Post (Collection types)
+    - Save Post
+
+=> User 
+    - Followers
+    - Following
