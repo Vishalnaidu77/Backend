@@ -19,7 +19,19 @@ const userSchema = new mongoose.Schema({
     profileImage: {
         type: String,
         default: "https://ik.imagekit.io/vishalnaidu/default-avatar-profile-icon-social-600nw-1906669723.webp"
-    }
+    },
+    followers: [
+        {
+            type: mongoose.Schema.Types.ObjectId ,
+            ref: "users"
+        }
+    ],
+    following: [ 
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "users"
+        }
+    ]
 })
 
 const userModel = mongoose.model("users", userSchema);
