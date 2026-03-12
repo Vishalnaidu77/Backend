@@ -1,42 +1,18 @@
-import { createContext, useState, useEffect } from "react";
-import { login, register, getMe } from "./services/auth.api";
+import React, { createContext, useState } from 'react'
+import axios from 'axios'
 
 export const AuthContext = createContext()
 
-export function AuthProvider({ children }) {
-    
+const AuthProvider = ({ children }) => {
+
     const [ user, setUser ] = useState(null)
     const [ loading, setLoading ] = useState(false)
 
-    const handleLogin = async (username, password) => {
-        setLoading(true)
-        try {
-            const res = await login(username, password)
-            setUser(res.user)
-            return res.user
-        } catch (err) {
-            throw err
-        } finally{
-            setLoading(false)
-        }
-    }
-
-    const handleRegister = async (username, email, password) => {
-        setLoading(true)
-        try {
-            const res = await register(username, email, password)
-            setUser(res.user)
-        } catch (err) {
-            throw err
-        } finally{
-            setLoading(false)
-        }
-    }
-
-    return(
-        <AuthContext.Provider value={{ user, loading, handleLogin, handleRegister}}>
-            { children }
-        </AuthContext.Provider>
-    )
-
+  return (
+    <AuthContext.Provider value={{ user, setUser, loading, setLoading }}>
+        { children }
+    </AuthContext.Provider>
+  )
 }
+
+export default AuthProvider
