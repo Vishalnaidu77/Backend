@@ -6,21 +6,12 @@ import axios from 'axios'
 
 const Register = () => {
 
-    const [username, setUsername] = useState(null)
-    const [email, setEmail] = useState(null)
-    const [password, setPassword] = useState(null)
+    const [username, setUsername] = useState("")
+    const [email, setEmail] = useState("")
+    const [password, setPassword] = useState("")
 
     const registerUser = async (e) => {
         e.preventDefault()
-
-        const res = await axios.post("http://localhost:3000/api/auth/register", {
-            username,
-            email,
-            password
-        }, {
-            withCredentials: true
-        })
-        console.log(res.data);
 
         setUsername("")
         setEmail("")
