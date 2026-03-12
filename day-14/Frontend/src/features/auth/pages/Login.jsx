@@ -15,6 +15,9 @@ const Login = () => {
 
     const res = await handleLogin(email, password,)
     console.log(res);
+
+    setEmail("")
+    setPassword("")
   }
 
   if(loading){
