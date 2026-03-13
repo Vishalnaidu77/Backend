@@ -4,6 +4,7 @@ import Login from './features/auth/pages/Login'
 import Register from './features/auth/pages/Register'
 import AppLayout from './AppLayout'
 import './features/shared/global.scss'
+import Feed from './features/posts/pages/Feed'
 
 const App = () => {
 
@@ -12,10 +13,10 @@ const App = () => {
     path: "/",
     element: <AppLayout />,
     children: [
-      // {
-      // index: true,
-      // element: <Home />
-      // },
+      {
+      index: true,
+      element: <Feed />
+      },
       {
         path: "/login",
         element: <Login />

@@ -41,6 +41,6 @@ export const useAuth = () => {
     }
 
     return{
-        user, setUser, loading, setLoading, handleLogin, handleRegister, getMe
+        user, setUser, loading, setLoading, handleLogin, handleRegister, handleGetMe
     }
 }

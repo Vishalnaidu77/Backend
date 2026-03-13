@@ -95,9 +95,27 @@ async function likedPostController(req, res){
     })
 }
 
+async function getFeedController(req, res){
+
+    const user = req.user
+    if(!user){
+        return res.status(404).json({
+            message: "User not authorized to see feed"
+        })
+    }
+
+    const posts = await postModel.find().populate("user")
+
+    res.status(200).json({
+        message: "Post fetched successfully.",
+        posts
+    })
+}
+
 module.exports = {
     createPostController,
     getPostController,
     getPostDetailsController,
-    likedPostController
+    likedPostController,
+    getFeedController
 }

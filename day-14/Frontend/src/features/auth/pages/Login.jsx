@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import './style.scss'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useAuth } from '../hooks/useAuth'
 
 const Login = () => {
@@ -9,12 +9,14 @@ const Login = () => {
 
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
+  const navigate = useNavigate()
 
   const loginUser = async (e) => {
     e.preventDefault()
 
     const res = await handleLogin(email, password,)
     console.log(res);
+    navigate('/')
 
     setEmail("")
     setPassword("")
