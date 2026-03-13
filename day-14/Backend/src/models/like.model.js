@@ -8,7 +8,7 @@ const likeSchema = new mongoose.Schema({
     },
     user: {
         type: String,
-        ref: "posts",
+        ref: "users",
         required: true
     }
 }, {
