@@ -5,6 +5,7 @@ import Register from './features/auth/pages/Register'
 import AppLayout from './AppLayout'
 import './features/shared/global.scss'
 import Feed from './features/posts/pages/Feed'
+import CreatePost from './features/posts/pages/CreatePost'
 
 const App = () => {
 
@@ -24,6 +25,10 @@ const App = () => {
       {
         path: "/register",
         element: <Register />
+      },
+      {
+        path: "/create-post",
+        element: <CreatePost />
       }
     ]
   }

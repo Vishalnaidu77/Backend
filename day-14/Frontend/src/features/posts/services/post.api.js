@@ -11,3 +11,24 @@ export async function getFeed() {
     return res.data
 
 }
+
+export async function createPost(imageFile, caption){
+    const formData = new FormData()
+
+    formData.append("image", imageFile)
+    formData.append("caption", caption)
+
+    const res = await api.post("/", formData)
+
+    return res.data
+}
+
+export async function likedPost(postId){
+    const res = await api.post(`/likes/${postId}`)
+    return res.data
+}
+
+export async function unLikedPost(postId){
+    const res = await api.post(`unlikes/${postId}`)
+    return res.data
+}
