@@ -24,11 +24,11 @@ export async function createPost(imageFile, caption){
 }
 
 export async function likedPost(postId){
-    const res = await api.post(`/likes/${postId}`)
+    const res = await api.post(`/like/${postId}`)
     return res.data
 }
 
 export async function unLikedPost(postId){
-    const res = await api.post(`unlikes/${postId}`)
+    const res = await api.post(`/unlike/${postId}`)
     return res.data
 }

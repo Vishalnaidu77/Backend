@@ -21,10 +21,10 @@ postRouter.get("/", identifyUser, postController.getPostController)
 postRouter.get("/details/:postId", identifyUser, postController.getPostDetailsController)
 
 // /api/posts/likes/:postid
-postRouter.post("/likes/:postid", identifyUser, postController.likedPostController)
+postRouter.post("/like/:postid", identifyUser, postController.likedPostController)
 
 // /api/posts/unlikes/:postid
-postRouter.post("/unlikes/:postid", identifyUser, postController.unLikedPostController)
+postRouter.post("/unlike/:postid", identifyUser, postController.unLikedPostController)
 
 // GET api/posts/feed
 postRouter.get("/feed", identifyUser, postController.getFeedController)

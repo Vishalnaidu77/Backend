@@ -101,7 +101,7 @@ async function unLikedPostController(req, res){
 
     const isLiked = await likeModel.findOne({
         post: postId,
-        username: username
+        user: username
     })
 
     if(!isLiked){
