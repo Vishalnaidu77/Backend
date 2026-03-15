@@ -84,9 +84,7 @@ async function getRequestAcceptedController(req, res){
     const username = req.user.username
     const followerUsername = req.params.username
 
-    console.log(username);
-
-    const loginUser = await followModel.findOne({ followee: username })
+    const loginUser = await userModel.findOne({ username })
 
     if(!loginUser){
         return res.status(401).json({
@@ -94,7 +92,10 @@ async function getRequestAcceptedController(req, res){
         })
     }
 
-    const follower = await followModel.findOne({ follower: followerUsername })
+    const follower = await followModel.findOne({
+        follower: followerUsername,
+        followee: username
+    })
 
     if(!follower){
         return res.status(404).json({
@@ -102,13 +103,40 @@ async function getRequestAcceptedController(req, res){
         })
     }
 
+    const followerUser = await userModel.findOne({ username: followerUsername })
+
+    if(!followerUser){
+        return res.status(404).json({
+            message: "Follower user not found"
+        })
+    }
+
     await followModel.findByIdAndUpdate(follower._id, {
         status: "accepted"
     })
+    
+    const user = await userModel.findOneAndUpdate(
+        { username },
+        {
+            $addToSet: {
+                followers: followerUser
+            }
+        },
+        { new: true }
+    )
+
+    await userModel.findOneAndUpdate(
+        { username: followerUsername },
+        {
+            $addToSet: {
+                following: loginUser
+            }
+        }
+    )
 
     res.status(200).json({
         message: "Request accepted",
-        follower
+        user
     })
 
 }
@@ -129,7 +157,7 @@ async function getRequestRejectedController(req, res) {
 
     if(!user){
         return res.status(404).json({
-            message: "This user can't sent you follow request."
+            message: "Request not found"
         })
     }
 

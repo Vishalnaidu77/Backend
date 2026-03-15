@@ -9,3 +9,4 @@ export async function getAllUsers(){
     const res = await api.get("/get-users")
     return res.data
 }
+

@@ -1,7 +1,7 @@
 const userModel = require("../models/user.model");
 const crypto = require("crypto")
 const bcrypt = require("bcryptjs")
-const jwt = require("jsonwebtoken")
+const jwt = require("jsonwebtoken");
 
 async function registerController(req, res) {
     const { username, email, password, bio, profileImage } = req.body;
@@ -85,7 +85,9 @@ async function loginController(req, res) {
             username: user.username,
             email: user.email,
             bio: user.bio,
-            profileImage: user.profileImage
+            profileImage: user.profileImage,
+            followers: user.followers,
+            following: user.following
         }
     })
 }

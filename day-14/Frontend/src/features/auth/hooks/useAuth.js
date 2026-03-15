@@ -13,6 +13,7 @@ export const useAuth = () => {
             const res = await login(email, password)
             setLoading(false)
             setUser(res.user)
+            console.log(res);
             return res.user
         } catch (err) {
             throw err

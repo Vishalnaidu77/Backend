@@ -3,8 +3,6 @@ import '../style/usercard.scss'
 
 const UserCard = ({ user }) => {
 
-    console.log(user);
-
   return (
     <div className="user-card">
         <div className="profile">
