@@ -1,0 +1,28 @@
+.followers-section{
+    max-width: 250px;
+    width: 100%;
+    position: sticky;
+    top: 0;
+    border-left: 1px solid rgb(53, 53, 53);
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    padding: 2.5rem 1rem;
+
+    .container{
+        height: 80vh;
+        width: 100%;
+
+
+        h2{
+            margin-bottom: 1rem;
+        }
+
+
+        .users{
+            display: flex;
+            flex-direction: column;
+            gap: 0.3rem;
+        }
+    }
+}

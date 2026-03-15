@@ -63,8 +63,26 @@ async function unfollowUserController(req, res){
     })
 }
 
+async function getUsersController(req, res){
+    const currUser = req.user
+
+    if(!currUser){
+        return res.status(401).json({
+            message: "Unauthorized user, login first"
+        })
+    }
+
+    const users = await userModel.find()
+
+    res.status(200).json({
+        message: "Users fetch successfully",
+        users
+    })
+}
+
 
 module.exports = {
     followUserController,
-    unfollowUserController
+    unfollowUserController,
+    getUsersController
 }

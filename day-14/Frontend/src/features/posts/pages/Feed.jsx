@@ -3,6 +3,7 @@ import "../style/style.scss"
 import Post from '../components/Post'
 import { usePost } from '../hooks/usePost'
 import Nav from '../../shared/component/Nav'
+import Followers from '../../followers/components/Followers'
 
 const Feed = () => {
 
@@ -20,7 +21,6 @@ const Feed = () => {
     <div>
       <main className='feed-page'>
         <div className="feed">
-          <Nav />
             <div className="posts">
                 {feed?.map(post => (
               <Post key={post._id} user={post.user} post={post} loading={loading} handleLike={handleLike} handleUnLike={handleUnLike}/>

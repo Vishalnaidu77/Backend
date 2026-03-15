@@ -10,4 +10,6 @@ userRouter.post("/follow/:username", identifyUser,  userController.followUserCon
 // Unfollow User /api/users/unfollow/:username
 userRouter.post("/unfollow/:username", identifyUser, userController.unfollowUserController)
 
+userRouter.get("/get-users", identifyUser, userController.getUsersController)
+
 module.exports = userRouter

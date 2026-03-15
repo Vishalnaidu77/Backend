@@ -1,0 +1,38 @@
+.user-card{
+    width: 200px;
+    height: 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 0.44rem;
+    background-color: rgb(38, 38, 38);
+    border-radius: 10px;
+
+    .profile{
+        display: flex;
+        align-items: center;
+        gap: 7px;
+
+        .profile-img{
+            width: 2rem;
+            aspect-ratio: 1/1;
+            border-radius: 50%;
+        }
+
+        p{
+            font-size: 0.9rem;
+        }
+    }
+
+    .flw-btn{
+        padding: 3px 6px;
+        background-color: transparent;
+        border: 1.5px solid rgb(76, 76, 76);
+        outline: none;
+        color: #fff;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    
+}
