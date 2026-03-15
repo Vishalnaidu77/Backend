@@ -80,9 +80,75 @@ async function getUsersController(req, res){
     })
 }
 
+async function getRequestAcceptedController(req, res){
+    const username = req.user.username
+    const followerUsername = req.params.username
+
+    console.log(username);
+
+    const loginUser = await followModel.findOne({ followee: username })
+
+    if(!loginUser){
+        return res.status(401).json({
+            message: "Unauthorized User."
+        })
+    }
+
+    const follower = await followModel.findOne({ follower: followerUsername })
+
+    if(!follower){
+        return res.status(404).json({
+            message: "Request not found"
+        })
+    }
+
+    await followModel.findByIdAndUpdate(follower._id, {
+        status: "accepted"
+    })
+
+    res.status(200).json({
+        message: "Request accepted",
+        follower
+    })
+
+}
+
+async function getRequestRejectedController(req, res) {
+    const username = req.user.username
+    const followerUsername = req.params.username
+
+    const loginUser = await followModel.findOne({ followee: username})
+
+    if(!loginUser){
+        return res.status(404).json({
+            message: "Unauthorized user"
+        })
+    }
+
+    const user = await followModel.findOne({ follower: followerUsername})
+
+    if(!user){
+        return res.status(404).json({
+            message: "This user can't sent you follow request."
+        })
+    }
+
+    await followModel.findByIdAndUpdate(user._id, {
+        status: "rejected"
+    })
+
+    res.status(200).json({
+        message: "Request rejected",
+        user
+    })
+}
+
+
 
 module.exports = {
     followUserController,
     unfollowUserController,
-    getUsersController
+    getUsersController,
+    getRequestAcceptedController,
+    getRequestRejectedController
 }
