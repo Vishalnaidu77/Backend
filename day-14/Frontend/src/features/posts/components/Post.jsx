@@ -1,9 +1,50 @@
-import React from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { FaHeart, FaRegBookmark, FaRegComment, FaRegHeart } from "react-icons/fa";
 import { PiShareFat } from "react-icons/pi";
 import { BiMessageRounded } from "react-icons/bi";
 
 const Post = ({ user, post, handleLike, handleUnLike }) => {
+
+    const [showImageHeart, setShowImageHeart] = useState(false)
+    const heartTimerRef = useRef(null)
+
+    const triggerImageHeart = () => {
+        setShowImageHeart(true)
+
+        if (heartTimerRef.current) {
+            clearTimeout(heartTimerRef.current)
+        }
+
+        heartTimerRef.current = setTimeout(() => {
+            setShowImageHeart(false)
+        }, 700)
+    }
+
+    const handleImageDoubleClick = () => {
+        if (!post.isLiked) {
+            handleLike(post._id)
+        }
+        triggerImageHeart()
+    }
+
+    const handleLikeClick = () => {
+        if (post.isLiked) {
+            handleUnLike(post._id)
+            return
+        }
+
+        handleLike(post._id)
+        triggerImageHeart()
+    }
+
+    useEffect(() => {
+        return () => {
+            if (heartTimerRef.current) {
+                clearTimeout(heartTimerRef.current)
+            }
+        }
+    }, [])
+
 
   return (
     <div>
@@ -14,15 +55,20 @@ const Post = ({ user, post, handleLike, handleUnLike }) => {
             </div>
             <p><b>{user.username}</b></p>
         </div>
-        <img src={post.imageUrl} alt="" />
+        <img 
+            onDoubleClick={handleImageDoubleClick}
+            src={post.imageUrl} 
+            alt="" 
+        />
+        <span className={`on-like-icon ${showImageHeart ? "show" : ""}`}>
+            <FaHeart />
+        </span>
         <div className="icons">
             <div className="left">
                 <button
                 className={`btn ${post.isLiked ? "liked" : ""}`}
                 aria-label={post.isLiked ? "Unlike post" : "Like post"}
-                onClick={() => {
-                    post.isLiked ? handleUnLike(post._id) : handleLike(post._id)
-                }}
+                onClick={handleLikeClick}
                 >
                     {post.isLiked ? <FaHeart /> : <FaRegHeart />}
                 </button>
