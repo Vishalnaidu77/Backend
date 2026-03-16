@@ -79,7 +79,7 @@ const Post = ({ user, post, handleLike, handleUnLike }) => {
                 <button className='btn'><FaRegBookmark /></button>
             </div>
         </div>
-        <p><b>{user.username}</b> {post.caption}</p>
+        <p className='caption'><b>{user.username}</b> {post.caption}</p>
     </div>
     </div>
   )

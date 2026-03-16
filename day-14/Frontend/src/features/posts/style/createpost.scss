@@ -1,7 +1,34 @@
-.post-image-label{
-    background-color: #fff;
-    color: #222;
-    padding: 0.5rem 1rem;
-    border-radius: 1rem;
-    cursor: pointer;
+.create-post-page{
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    gap: 3rem;
+
+    .go-back{
+        background-color: transparent;
+        color: #fff;
+        font-size: 1.5rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 0.3rem 0.6rem;
+        border-radius: 5px;
+        border: none;
+        cursor: pointer;
+        transition: all 0.3s ease-in-out;
+    }
+
+    .go-back:active{
+        transform: scale(0.8);
+    }
+
+    .post-image-label{
+        background-color: #fff;
+        color: #222;
+        padding: 0.5rem 1rem;
+        border-radius: 1rem;
+        cursor: pointer;
+    }
 }
+
+

@@ -2,6 +2,7 @@ import React, { useRef, useState } from 'react'
 import '../style/createpost.scss'
 import { usePost } from '../hooks/usePost'
 import { useNavigate } from 'react-router-dom'
+import { IoIosArrowBack } from "react-icons/io";
 
 const CreatePost = () => {
 
@@ -27,6 +28,12 @@ const CreatePost = () => {
 
   return (
     <main className='create-post-page'>
+        <button 
+            className='go-back'
+            onClick={() => navigate("/")}
+        >
+            <IoIosArrowBack />
+        </button>
         <div className="form-container">
             <h1>Create post</h1>
             <form onSubmit={handleSubmit}>

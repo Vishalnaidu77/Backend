@@ -2,20 +2,28 @@ import React, { useState } from 'react'
 import '../../shared/nav.scss'
 import { useNavigate } from 'react-router-dom'
 import { GoHome, GoHomeFill } from "react-icons/go";
-import { FaMessage, FaRegMessage } from "react-icons/fa6";
 import { IoAdd, IoNotifications, IoNotificationsOutline } from "react-icons/io5";
+import { useAuth } from '../../auth/hooks/useAuth';
+import { TbMessageCircle, TbMessageCircleFilled } from "react-icons/tb";
+import { MdAddBox } from "react-icons/md";
 
 const Nav = () => {
 
   const [ navHover, setNavHover ] = useState(false)
-  const [ hover, setHover ] = useState(false)
+  const [ homeHover, setHomeHover ] = useState(false)
+  const [ notificationHover, setNotificationHover ] = useState(false)
+  const [ msgHover, setMsgHover ] = useState(false)
+  const [ addPostHover, setAddPostHover ] = useState(false)
+  const [ profileHover, setProfileHover ] = useState(false)
   
+
+  const { currUser } = useAuth()
     const navigate = useNavigate()
 
   return (
     <nav className='navbar'>
       <div className="logo">
-          <img src="../../public/logo.png" alt="" />
+          <img className="logo-img" src="../../public/logo.png" alt="" />
         </div>
       <div className="container"> 
         <div 
@@ -23,37 +31,50 @@ const Nav = () => {
             onMouseEnter={() => setNavHover(true)}
             onMouseLeave={() => setNavHover(false)}>
           <div 
-            className="home" 
-            onMouseEnter={() => setHover(true)}
-            onMouseLeave={() => setHover(false)}
+            className={`home option ${homeHover ? 'hover' : ''}`}
+            onMouseEnter={() => setHomeHover(true)}
+            onMouseLeave={() => setHomeHover(false)}
+            onClick={() => navigate('/')}
           >
-            {hover ? <GoHomeFill /> : <GoHome />}
+            {homeHover ? <GoHomeFill /> : <GoHome />}
+            <h4>Home</h4>
           </div>
           <div 
-            className="notification"
-            onMouseEnter={() => setHover(true)}
-            onMouseLeave={() => setHover(false)}
+            className={`notification option ${notificationHover ? 'hover' : ''}`}
+            onMouseEnter={() => setNotificationHover(true)}
+            onMouseLeave={() => setNotificationHover(false)}
           >
-            {hover ? <IoNotifications /> : <IoNotificationsOutline />}
+            {notificationHover ? <IoNotifications /> : <IoNotificationsOutline />}
+            <h4>Notification</h4>
+
           </div>
           <div 
-            className="msg"
-            onMouseEnter={() => setHover(true)}
-            onMouseLeave={() => setHover(false)}
+            className={`msg option ${msgHover ? 'hover' : ''}`}
+            onMouseEnter={() => setMsgHover(true)}
+            onMouseLeave={() => setMsgHover(false)}
           >
-            {hover ?  <FaMessage /> : <FaRegMessage />}
+            {msgHover ?  <TbMessageCircleFilled /> : <TbMessageCircle />}
+            <h4>Message</h4>
           </div>
           <div 
-            className="create-post"
-            onMouseEnter={() => setHover(true)}
-            onMouseLeave={() => setHover(false)}
+            className={`create-post option ${addPostHover ? 'hover' : ''}`}
+            onMouseEnter={() => setAddPostHover(true)}
+            onMouseLeave={() => setAddPostHover(false)}
+            onClick={() => navigate('/create-post')}
           >
-            <IoAdd />
+            {addPostHover ? <MdAddBox /> : <IoAdd />}
+            <h4>Add Post</h4>
+
           </div>
-        </div>
-        <div className="profile">
-          
-        </div>
+          <div 
+            className={`profile option ${profileHover ? 'hover' : ''}`}
+            onMouseEnter={() => setProfileHover(true)}
+            onMouseLeave={() => setProfileHover(false)}
+          >
+            <img src={currUser?.profileImage} alt="" />
+            <h4>{currUser?.username}</h4>
+          </div>
+        </div> 
       </div>
         {/* <p>Insta</p>
         <button 
