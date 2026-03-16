@@ -134,6 +134,9 @@ async function getRequestAcceptedController(req, res){
         }
     )
 
+    console.log(followerUser);
+    
+
     res.status(200).json({
         message: "Request accepted",
         user
@@ -170,8 +173,6 @@ async function getRequestRejectedController(req, res) {
         user
     })
 }
-
-
 
 module.exports = {
     followUserController,

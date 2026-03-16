@@ -5,14 +5,14 @@ import { getMe, login, register } from "../services/auth.api"
 export const useAuth = () => {
     const context = useContext(AuthContext)
 
-    const { user, setUser, loading, setLoading } = context
+    const { currUser, setCurrUser, loading, setLoading } = context
     
     const handleLogin = async (email, password) => {
         setLoading(true)
         try {
             const res = await login(email, password)
             setLoading(false)
-            setUser(res.user)
+            setCurrUser(res.user)
             console.log(res);
             return res.user
         } catch (err) {
@@ -27,7 +27,7 @@ export const useAuth = () => {
         try {
             const res = await register(username, email, password)
             setLoading(false)
-            setUser(res.user)
+            setCurrUser(res.user)
             return res.user
         } catch (err) {
             throw err
@@ -38,10 +38,10 @@ export const useAuth = () => {
 
     const handleGetMe = async () => {
         const res = await getMe()
-        setUser(res.user)
+        setCurrUser(res.user)
     }
 
     return{
-        user, setUser, loading, setLoading, handleLogin, handleRegister, handleGetMe
+        currUser, setCurrUser, loading, setLoading, handleLogin, handleRegister, handleGetMe
     }
 }

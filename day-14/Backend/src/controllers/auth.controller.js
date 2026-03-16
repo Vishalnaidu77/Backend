@@ -96,6 +96,8 @@ async function getMeController(req, res) {
     const userId = req.user.id
 
     const user = await userModel.findById(userId)
+    .populate('followers')
+    .populate('following')
 
     if(!user){
         return res.status(404).json({
@@ -108,7 +110,9 @@ async function getMeController(req, res) {
             username: user.username,
             email: user.email,
             bio: user.bio,
-            profileImage: user.profileImage
+            profileImage: user.profileImage,
+            followers: user.followers,
+            following: user.following
         }
     })
 }

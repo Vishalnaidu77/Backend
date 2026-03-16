@@ -2,22 +2,38 @@ import React, { useEffect } from 'react'
 import '../style/followers.scss'
 import useUser from '../hooks/useUser'
 import UserCard from './UserCard'
+import { useAuth } from '../../auth/hooks/useAuth'
 
 const Followers = () => {
 
     const { user, loading, setLoading, handleGetUser } = useUser()
 
-    let followersId = []
-    let followers = []
+    const { currUser, handleGetMe } = useAuth()
 
-    user?.forEach(users => {
-        if(users.followers.length > 0){
-            followersId.push(users.followers)
-        }
-    });
+    const getId = (value) => {
+        if (!value) return null
+        if (typeof value === "string") return value
+        return value._id ? String(value._id) : null
+    }
 
+    const followerIdSet = new Set((currUser?.followers || []).map(getId).filter(Boolean))
+    const followingIdSet = new Set((currUser?.following || []).map(getId).filter(Boolean))
+
+    const suggestedUsers = (user || []).filter((candidate) => {
+        const candidateId = getId(candidate)
+
+        if (!candidateId) return false
+        if (candidateId === getId(currUser)) return false
+        if (candidate.username === currUser?.username) return false
+        if (followerIdSet.has(candidateId)) return false
+        if (followingIdSet.has(candidateId)) return false
+
+        return true
+    })
+    
     useEffect(() => {
         handleGetUser()
+        handleGetMe()
     }, [])
 
   return (
@@ -26,23 +42,24 @@ const Followers = () => {
             <div className="followers">
                 <h2>Followers</h2>
                 <div className="users">
-                    {user?.followers?.map(followers => {
-                        return <UserCard user={followers} />
+                    {currUser?.followers.map(user => {
+                        return <UserCard key={getId(user)} user={user} />
                     })}
                 </div>
-            </div>
+            </div>000
             <div className="following">
                 <h2>Following</h2>
                 <div className="users">
-                    
+                    {currUser?.following.map(user => {
+                        return <UserCard key={getId(user)} user={user}/>
+                    })}
                 </div>
             </div>
             <div className="suggestion">
                 <h2>Suggestion</h2>
                 <div className="users">
-                    {user?.map(availUsers => {
-                        
-                        return <UserCard user={availUsers} />
+                    {suggestedUsers.map(availUsers => {
+                        return <UserCard key={availUsers._id} user={availUsers} />
                     })}
                 </div>
             </div>
