@@ -9,3 +9,8 @@ export async function getAllUsers(){
     const res = await api.get("/get-users")
     return res.data
 }
+
+export async function followUser(username){
+    const res = await api.post(`/follow/${username}`)
+    return res.data
+}

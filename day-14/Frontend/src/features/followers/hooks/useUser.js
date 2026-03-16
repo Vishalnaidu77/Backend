@@ -1,6 +1,6 @@
 import { useContext } from "react"
 import { UserContext } from "../user.context"
-import { getAllUsers } from "../services/users.api"
+import { followUser, getAllUsers } from "../services/users.api"
 
 const useUser = () => {
 
@@ -19,11 +19,17 @@ const useUser = () => {
         }
     }
 
+    const handleFollowUser = async (username) => {
+        const res = await followUser(username)
+        return res
+    }
+
     return{
         user,
         loading,
         setLoading,
-        handleGetUser
+        handleGetUser,
+        handleFollowUser
     }
 }
 

@@ -6,7 +6,7 @@ import { useAuth } from '../../auth/hooks/useAuth'
 
 const Followers = () => {
 
-    const { user, loading, setLoading, handleGetUser } = useUser()
+    const { user, loading, setLoading, handleGetUser, handleFollowUser } = useUser()
 
     const { currUser, handleGetMe } = useAuth()
 
@@ -40,26 +40,26 @@ const Followers = () => {
     <main className='followers-section'>
         <div className="container">
             <div className="followers">
-                <h2>Followers</h2>
+                <h4>Followers</h4>
                 <div className="users">
                     {currUser?.followers.map(user => {
-                        return <UserCard key={getId(user)} user={user} />
+                        return <UserCard key={getId(user)} user={user} followingIdSet={followingIdSet} handleFollowUser={handleFollowUser} />
                     })}
                 </div>
-            </div>000
+            </div>
             <div className="following">
-                <h2>Following</h2>
+                <h4>Following</h4>
                 <div className="users">
                     {currUser?.following.map(user => {
-                        return <UserCard key={getId(user)} user={user}/>
+                        return <UserCard key={getId(user)} user={user} followingIdSet={followingIdSet} handleFollowUser={handleFollowUser}/>
                     })}
                 </div>
             </div>
             <div className="suggestion">
-                <h2>Suggestion</h2>
+                <h4>Suggestion</h4>
                 <div className="users">
                     {suggestedUsers.map(availUsers => {
-                        return <UserCard key={availUsers._id} user={availUsers} />
+                        return <UserCard key={availUsers._id} user={availUsers} followingIdSet={followingIdSet} handleFollowUser={handleFollowUser}/>
                     })}
                 </div>
             </div>
