@@ -26,6 +26,13 @@
             display: flex;
             flex-direction: column;
             gap: 0.7rem;
+
+            .empty-message{
+                color: #888;
+                font-size: 0.9rem;
+                padding: 1rem 0;
+                text-align: center;
+            }
         }
     }
 }

@@ -11,14 +11,19 @@ export const useAuth = () => {
         setLoading(true)
         try {
             const res = await login(email, password)
-            setLoading(false)
             setCurrUser(res.user)
             console.log(res);
+            const meRes = await getMe()
+            setCurrUser({
+                ...meRes.user,
+                followers: meRes.user.followers || [],
+                following: meRes.user.following || []
+            })
+            setLoading(false)
             return res.user
         } catch (err) {
-            throw err
-        } finally{
             setLoading(false)
+            throw err
         }
     }
 
@@ -26,19 +31,34 @@ export const useAuth = () => {
         setLoading(true)
         try {
             const res = await register(username, email, password)
-            setLoading(false)
             setCurrUser(res.user)
+            const meRes = await getMe()
+            setCurrUser({
+                ...meRes.user,
+                followers: meRes.user.followers || [],
+                following: meRes.user.following || []
+            })
+            setLoading(false)
             return res.user
         } catch (err) {
-            throw err
-        } finally{
             setLoading(false)
+            throw err
         }
     }
 
     const handleGetMe = async () => {
-        const res = await getMe()
-        setCurrUser(res.user)
+        try {
+            const res = await getMe()
+            console.log("GetMe response:", res)
+            setCurrUser({
+                ...res.user,
+                followers: res.user.followers || [],
+                following: res.user.following || []
+            })
+        } catch (err) {
+            console.error("Error fetching user data:", err)
+            throw err
+        }
     }
 
     return{

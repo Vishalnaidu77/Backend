@@ -23,7 +23,7 @@ const Nav = () => {
   return (
     <nav className='navbar'>
       <div className="logo">
-          <img className="logo-img" src="../../public/logo.png" alt="" />
+          <img className="logo-img" src="/logo.png" alt="" />
         </div>
       <div className="container"> 
         <div 

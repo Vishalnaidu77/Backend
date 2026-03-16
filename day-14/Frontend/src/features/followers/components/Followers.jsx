@@ -8,7 +8,7 @@ const Followers = () => {
 
     const { user, loading, setLoading, handleGetUser, handleFollowUser } = useUser()
 
-    const { currUser, handleGetMe } = useAuth()
+    const { currUser, handleGetMe, loading: authLoading } = useAuth()
 
     const getId = (value) => {
         if (!value) return null
@@ -36,31 +36,70 @@ const Followers = () => {
         handleGetMe()
     }, [])
 
+    useEffect(() => {
+        console.log("currUser updated:", currUser)
+    }, [currUser])
+
+    // Show loading if auth is loading or followers/following are not yet populated
+    const isLoading = authLoading || (currUser && (!currUser.followers || !currUser.following))
+
+    if (isLoading) {
+        return (
+            <div className='followers-section'>
+                <div className="container">
+                    <p>Loading...</p>
+                </div>
+            </div>
+        )
+    }
+
+    if (!currUser) {
+        return (
+            <div className='followers-section'>
+                <div className="container">
+                    <p>No data available</p>
+                </div>
+            </div>
+        )
+    }
+
   return (
     <main className='followers-section'>
         <div className="container">
             <div className="followers">
                 <h4>Followers</h4>
                 <div className="users">
-                    {currUser?.followers.map(user => {
-                        return <UserCard key={getId(user)} user={user} followingIdSet={followingIdSet} handleFollowUser={handleFollowUser} />
-                    })}
+                    {currUser?.followers && currUser.followers.length > 0 ? (
+                        currUser.followers.map(user => {
+                            return <UserCard key={getId(user)} user={user} followingIdSet={followingIdSet} handleFollowUser={handleFollowUser} />
+                        })
+                    ) : (
+                        <p className='empty-message'>No followers yet</p>
+                    )}
                 </div>
             </div>
             <div className="following">
                 <h4>Following</h4>
                 <div className="users">
-                    {currUser?.following.map(user => {
-                        return <UserCard key={getId(user)} user={user} followingIdSet={followingIdSet} handleFollowUser={handleFollowUser}/>
-                    })}
+                    {currUser?.following && currUser.following.length > 0 ? (
+                        currUser.following.map(user => {
+                            return <UserCard key={getId(user)} user={user} followingIdSet={followingIdSet} handleFollowUser={handleFollowUser}/>
+                        })
+                    ) : (
+                        <p className='empty-message'>Not following anyone yet</p>
+                    )}
                 </div>
             </div>
             <div className="suggestion">
                 <h4>Suggestion</h4>
                 <div className="users">
-                    {suggestedUsers.map(availUsers => {
-                        return <UserCard key={availUsers._id} user={availUsers} followingIdSet={followingIdSet} handleFollowUser={handleFollowUser}/>
-                    })}
+                    {suggestedUsers && suggestedUsers.length > 0 ? (
+                        suggestedUsers.map(availUsers => {
+                            return <UserCard key={availUsers._id} user={availUsers} followingIdSet={followingIdSet} handleFollowUser={handleFollowUser}/>
+                        })
+                    ) : (
+                        <p className='empty-message'>No suggestions available</p>
+                    )}
                 </div>
             </div>
         </div>
