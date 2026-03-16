@@ -3,6 +3,7 @@ const ImageKit = require("@imagekit/nodejs/index.js")
 const { toFile } = require("@imagekit/nodejs/index.js")
 const jwt = require("jsonwebtoken");
 const likeModel = require("../models/like.model");
+const saveModel = require("../models/save.model")
 
 const imageKit = new ImageKit({
     privateKey: process.env.IMAGEKIT_PRIVATE_KEY
@@ -145,11 +146,52 @@ async function getFeedController(req, res){
     })
 }
 
+async function savePostController(req, res){
+    const user = req.user
+    const postId = req.params.postId
+    
+    if(!user){
+        return res.status(400).json({
+            message: "User not authorized"
+        })
+    }
+
+    const postExists = await postModel.findOne({ _id: postId })
+    console.log(postExists);
+    
+    if(!postExists){
+        return res.status(404).json({
+            message: "Post not found"
+        })
+    }
+
+    const postAlreadySaved = await saveModel.findOne({ postId: postId })
+
+    if(postAlreadySaved){
+        return res.status(400).json({
+            message: "You can't save one more twice."
+        })
+    }
+
+    const savePost = await saveModel.create({
+        user: postExists.user,
+        caption: postExists.caption,
+        imageUrl: postExists.imageUrl,
+        postId: postExists._id
+    })
+
+    res.status(200).json({
+        message: "Post saved successfully",
+        savePost
+    })
+}
+
 module.exports = {
     createPostController,
     getPostController,
     getPostDetailsController,
     likedPostController,
     getFeedController,
-    unLikedPostController
+    unLikedPostController,
+    savePostController
 }

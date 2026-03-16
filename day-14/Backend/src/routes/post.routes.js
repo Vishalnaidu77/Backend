@@ -29,4 +29,7 @@ postRouter.post("/unlike/:postid", identifyUser, postController.unLikedPostContr
 // GET api/posts/feed
 postRouter.get("/feed", identifyUser, postController.getFeedController)
 
+// Post api/posts/save/:postid
+postRouter.post("/save/:postId", identifyUser, postController.savePostController)
+
 module.exports = postRouter;
