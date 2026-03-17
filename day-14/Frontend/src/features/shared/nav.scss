@@ -73,4 +73,66 @@
             opacity: 1;
         }
     }
+
+    .setting{
+        margin-top: auto;
+        padding: 0.6rem 0.8rem;
+        cursor: pointer;
+
+        svg{
+            height: 1.8rem;
+            width: 1.8rem;
+        }
+    }
+
+    .setting-box{
+        margin-top: 1rem;
+        width: 85%;
+        height: 100px;
+        border-radius: 0.5rem;
+        position: absolute;
+        bottom: 8%;
+        display: flex;
+        flex-direction: column;
+        background-color: #ffffff22;
+        padding: 0 0.8rem;
+        justify-content: center;
+        gap: 0.5rem;
+
+        .setting-option{
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background-color: #ffffff22;
+            padding: 0.6rem 0.8rem;
+            border-radius: 0.5rem;
+            cursor: pointer;
+
+            h4{
+                font-size: 0.9rem;
+            }
+        }
+        
+
+            .light, .dark{
+                height: 2rem;
+                width: 2rem;
+                display: flex;
+                width: 100%;
+                background-color: #ffffff22;
+                align-items: center;
+                padding: 0.7rem 0.8rem;
+                cursor: pointer;
+                border-radius: 0.5rem;
+
+                svg{
+                    height: 1.2rem;
+                    width: 1.2rem;
+                }
+            }
+
+            .light:hover, .dark:hover{
+                background-color: #ffffff22;
+            }
+    }
 }

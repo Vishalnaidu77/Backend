@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import '../../shared/nav.scss'
 import { useNavigate } from 'react-router-dom'
 import { GoHome, GoHomeFill } from "react-icons/go";
-import { IoAdd, IoNotifications, IoNotificationsOutline } from "react-icons/io5";
+import { IoAdd, IoMoonSharp, IoNotifications, IoNotificationsOutline, IoSettings, IoSettingsOutline, IoSunnyOutline } from "react-icons/io5";
 import { useAuth } from '../../auth/hooks/useAuth';
 import { TbMessageCircle, TbMessageCircleFilled } from "react-icons/tb";
 import { MdAddBox } from "react-icons/md";
@@ -15,7 +15,12 @@ const Nav = () => {
   const [ msgHover, setMsgHover ] = useState(false)
   const [ addPostHover, setAddPostHover ] = useState(false)
   const [ profileHover, setProfileHover ] = useState(false)
-  
+  const [ settingHover, setSettingHover ] = useState(false)
+
+  const [isSettingOpen, setIsSettingOpen] = useState(false)
+
+  const [theme, setTheme] = useState('dark')
+
 
   const { currUser } = useAuth()
     const navigate = useNavigate()
@@ -76,10 +81,26 @@ const Nav = () => {
           </div>
         </div> 
       </div>
-        {/* <p>Insta</p>
-        <button 
-        onClick={() => navigate('/create-post')}
-        className='button primary-btn'>New post</button>  */}
+      <div className={`setting ${settingHover ? 'hover' : ''}`}
+        onClick={() => {
+          isSettingOpen ? setIsSettingOpen(false) : setIsSettingOpen(true)
+        }}
+        onMouseEnter={() => setSettingHover(true)}
+        onMouseLeave={() => setSettingHover(false)}
+      >
+        {settingHover ? <IoSettings /> : <IoSettingsOutline />}
+      </div>
+      {isSettingOpen && (
+        <div className={"setting-box"}>
+          <div className="theme setting-option" onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}>
+            {theme === 'dark' ? <IoSunnyOutline /> : <IoMoonSharp />}
+            <h4>{theme === 'dark' ? 'Light Mode' : 'Dark Mode'}</h4>
+          </div>
+          <div className="logout-btn setting-option">
+            <h4>Logout</h4>
+          </div>
+        </div>
+      )}
     </nav>
   )
 }
