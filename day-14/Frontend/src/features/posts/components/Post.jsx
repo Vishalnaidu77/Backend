@@ -2,12 +2,16 @@ import React, { useEffect, useRef, useState } from 'react'
 import { FaHeart, FaRegComment, FaRegHeart } from "react-icons/fa";
 import { PiShareFat } from "react-icons/pi";
 import { BiMessageRounded } from "react-icons/bi";
-import { HiOutlineBookmark } from "react-icons/hi2";
+import { HiMiniBookmark, HiOutlineBookmark } from "react-icons/hi2";
+import { useLocation } from 'react-router-dom';
 
-const Post = ({ user, post, handleLike, handleUnLike, handleSavePost }) => {
+const Post = ({ user, post, handleLike, handleUnLike, handleSavePost, allSavePost, feed }) => {
 
     const [showImageHeart, setShowImageHeart] = useState(false)
     const heartTimerRef = useRef(null)
+
+    console.log(allSavePost);
+    console.log(post);
 
     const triggerImageHeart = () => {
         setShowImageHeart(true)
@@ -46,6 +50,7 @@ const Post = ({ user, post, handleLike, handleUnLike, handleSavePost }) => {
         }
     }, [])
 
+    const location = useLocation()
 
   return (
     <div>
@@ -77,7 +82,10 @@ const Post = ({ user, post, handleLike, handleUnLike, handleSavePost }) => {
                 <button className='btn'><PiShareFat /></button>
             </div>
             <div className="right" onClick={() => handleSavePost(post._id)}>
-                <button className='btn'><HiOutlineBookmark /></button>
+                {post.postId || allSavePost?.some(savePost => savePost.postId.toString() === post._id.toString()) 
+                    ? <button className='btn'><HiMiniBookmark /></button> 
+                    : <button className='btn'><HiOutlineBookmark /></button>
+                }
             </div>
         </div>
         <p className='caption'><b>{user?.username ? user.username : post.postUserUsername}</b> {post.caption}</p>

@@ -7,14 +7,11 @@ import Followers from '../../followers/components/Followers'
 
 const Feed = () => {
 
-  const { feed, loading, handleGetFeed, handleLike, handleUnLike, handleSavePost } = usePost()
-  
-  feed?.map(feed => {
-    console.log(feed);
-  })
+  const { feed, loading, handleGetFeed, handleLike, handleUnLike, handleSavePost, allSavePost, handleGetSavePost } = usePost()
   
     useEffect(() => {
         handleGetFeed()
+        handleGetSavePost()
     }, [])
 
     if(loading){
@@ -27,7 +24,16 @@ const Feed = () => {
         <div className="feed">
             <div className="posts">
                 {feed?.map(post => (
-                  <Post key={post._id} user={post.user} post={post} loading={loading} handleLike={handleLike} handleUnLike={handleUnLike} handleSavePost={handleSavePost}/>
+                  <Post key={post._id} 
+                  user={post.user} 
+                  post={post} 
+                  loading={loading} 
+                  handleLike={handleLike} 
+                  handleUnLike={handleUnLike} 
+                  handleSavePost={handleSavePost}
+                  feed={feed}
+                  allSavePost={allSavePost}
+                />
                 ))}
             </div>
         </div>

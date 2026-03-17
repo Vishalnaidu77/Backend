@@ -6,9 +6,9 @@ import { savePost } from '../services/post.api'
 
 const SavedPost = () => {
 
-    const { allSavePost, loading, handleGetSavePost, handleSavePost } = usePost()
+    const {  allSavePost, loading, handleGetSavePost, handleSavePost } = usePost()
 
-    console.log(allSavePost);
+
 
     allSavePost?.map(post => {
       console.log(post);
@@ -25,7 +25,7 @@ const SavedPost = () => {
           <div className="feed">
               <div className="posts">
                   {allSavePost?.map(post => (
-                    <Post key={post._id} user={post.user} post={post} loading={loading}  handleSavePost={handleSavePost}/>
+                    <Post key={post._id} user={post.user} allSavePost={allSavePost} post={post} loading={loading}  handleSavePost={handleSavePost}/>
                   ))}
               </div>
           </div>

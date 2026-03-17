@@ -43,6 +43,7 @@ export const usePost = () => {
     const handleSavePost = async (postId) => {
         const res = await savePost(postId)
         setSavedPost(res.post)
+        await handleGetSavePost()
         console.log("Post saved successfully");
     }
 
