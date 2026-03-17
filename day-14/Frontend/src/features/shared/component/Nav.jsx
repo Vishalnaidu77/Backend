@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import '../../shared/nav.scss'
 import { useNavigate } from 'react-router-dom'
 import { GoHome, GoHomeFill } from "react-icons/go";
@@ -19,11 +19,28 @@ const Nav = () => {
 
   const [isSettingOpen, setIsSettingOpen] = useState(false)
 
-  const [theme, setTheme] = useState('dark')
+  const [theme, setTheme] = useState(() => {
+    const storedTheme = localStorage.getItem('theme')
+
+    if (storedTheme === 'light' || storedTheme === 'dark') {
+      return storedTheme
+    }
+
+    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+  })
 
 
   const { currUser } = useAuth()
     const navigate = useNavigate()
+
+    useEffect(() => {
+      document.documentElement.setAttribute('data-theme', theme)
+      localStorage.setItem('theme', theme)
+    }, [theme])
+
+    const handleThemeChange = () => {
+      setTheme((prevTheme) => (prevTheme === 'dark' ? 'light' : 'dark'))
+    }
 
   return (
     <nav className='navbar'>
@@ -92,7 +109,7 @@ const Nav = () => {
       </div>
       {isSettingOpen && (
         <div className={"setting-box"}>
-          <div className="theme setting-option" onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}>
+          <div className="theme setting-option" onClick={handleThemeChange}>
             {theme === 'dark' ? <IoSunnyOutline /> : <IoMoonSharp />}
             <h4>{theme === 'dark' ? 'Light Mode' : 'Dark Mode'}</h4>
           </div>
