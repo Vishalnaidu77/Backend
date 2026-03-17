@@ -6,6 +6,7 @@ import { IoAdd, IoMoonSharp, IoNotifications, IoNotificationsOutline, IoSettings
 import { useAuth } from '../../auth/hooks/useAuth';
 import { TbMessageCircle, TbMessageCircleFilled } from "react-icons/tb";
 import { MdAddBox } from "react-icons/md";
+import { HiMiniBookmark, HiOutlineBookmark } from 'react-icons/hi2';
 
 const Nav = () => {
 
@@ -13,6 +14,7 @@ const Nav = () => {
   const [ homeHover, setHomeHover ] = useState(false)
   const [ notificationHover, setNotificationHover ] = useState(false)
   const [ msgHover, setMsgHover ] = useState(false)
+  const [ savedHover, setSavedHover ] = useState(false)
   const [ addPostHover, setAddPostHover ] = useState(false)
   const [ profileHover, setProfileHover ] = useState(false)
   const [ settingHover, setSettingHover ] = useState(false)
@@ -78,6 +80,15 @@ const Nav = () => {
               <h4>Message</h4>
             </div>
             <div 
+              className={`saved option ${savedHover ? 'hover' : ''}`}
+              onMouseEnter={() => setSavedHover(true)}
+              onMouseLeave={() => setSavedHover(false)}
+              onClick={() => navigate("/saved-post")}
+            >
+              {savedHover ? <HiMiniBookmark /> : <HiOutlineBookmark />}
+              <h4>Saved</h4>
+            </div>
+            <div 
               className={`create-post option ${addPostHover ? 'hover' : ''}`}
               onMouseEnter={() => setAddPostHover(true)}
               onMouseLeave={() => setAddPostHover(false)}
@@ -85,7 +96,6 @@ const Nav = () => {
             >
               {addPostHover ? <MdAddBox /> : <IoAdd />}
               <h4>Add Post</h4>
-
             </div>
             <div 
               className={`profile option ${profileHover ? 'hover' : ''}`}

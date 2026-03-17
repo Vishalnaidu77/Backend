@@ -1,7 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { FaHeart, FaRegBookmark, FaRegComment, FaRegHeart } from "react-icons/fa";
+import { FaHeart, FaRegComment, FaRegHeart } from "react-icons/fa";
 import { PiShareFat } from "react-icons/pi";
 import { BiMessageRounded } from "react-icons/bi";
+import { HiOutlineBookmark } from "react-icons/hi2";
 
 const Post = ({ user, post, handleLike, handleUnLike, handleSavePost }) => {
 
@@ -76,7 +77,7 @@ const Post = ({ user, post, handleLike, handleUnLike, handleSavePost }) => {
                 <button className='btn'><PiShareFat /></button>
             </div>
             <div className="right" onClick={() => handleSavePost(post._id)}>
-                <button className='btn'><FaRegBookmark /></button>
+                <button className='btn'><HiOutlineBookmark /></button>
             </div>
         </div>
         <p className='caption'><b>{user.username}</b> {post.caption}</p>
