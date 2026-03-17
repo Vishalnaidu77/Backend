@@ -52,9 +52,9 @@ const Post = ({ user, post, handleLike, handleUnLike, handleSavePost }) => {
       <div className="post">
         <div className="user">
             <div className="img-wrapper">
-                <img src={user.profileImage} alt="" />
+                <img src={user?.profileImage ? user.profileImage : post.postUserProfileImage} alt="" />
             </div>
-            <p><b>{user.username}</b></p>
+            <p><b>{user?.username ? user.username : post.postUserUsername}</b></p>
         </div>
         <img 
             onDoubleClick={handleImageDoubleClick}
@@ -80,7 +80,7 @@ const Post = ({ user, post, handleLike, handleUnLike, handleSavePost }) => {
                 <button className='btn'><HiOutlineBookmark /></button>
             </div>
         </div>
-        <p className='caption'><b>{user.username}</b> {post.caption}</p>
+        <p className='caption'><b>{user?.username ? user.username : post.postUserUsername}</b> {post.caption}</p>
     </div>
     </div>
   )

@@ -157,7 +157,7 @@ async function savePostController(req, res){
     }
 
     const postExists = await postModel.findOne({ _id: postId }).populate("user")
-    console.log(postExists);
+    console.log(postExists.user);
     
     if(!postExists){
         return res.status(404).json({
@@ -215,15 +215,17 @@ async function deleteSavePostController(req, res){
 }
 
 async function getSavedPostController(req, res) {
-    const username = req.user.username
+    const user = req.user
 
-    if(!username){
+    if(!user){
         return res.status(401).json({
             message: "User not authorized"
         })
     }
 
-    const posts = await saveModel.find({ username: username })
+    console.log(user);
+
+    const posts = await saveModel.find({ saveUser: user.id })
 
     if(!posts.length > 0){
         return res.status(404).json({
