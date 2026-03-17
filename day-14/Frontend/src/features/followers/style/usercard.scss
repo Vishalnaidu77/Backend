@@ -5,7 +5,7 @@
     justify-content: space-between;
     align-items: center;
     padding: 0 0.44rem;
-    background-color: rgb(38, 38, 38);
+    background-color: var(--surface-color);
     border-radius: 10px;
 
     .profile{
@@ -29,7 +29,7 @@
         background-color: transparent;
         border: 1.5px solid rgb(76, 76, 76);
         outline: none;
-        color: #fff;
+        color: var(--text-color);
         border-radius: 5px;
         cursor: pointer;
     }

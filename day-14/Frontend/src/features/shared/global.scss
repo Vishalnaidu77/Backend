@@ -40,3 +40,19 @@ a{
     justify-content: space-between;
     align-items: start;
 }
+
+.main-page.auth-layout{
+    min-height: 100vh;
+    justify-content: center;
+}
+
+.main-page.auth-layout .main-content{
+    width: 100%;
+}
+
+.main-page.auth-layout .main-content.auth-content{
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

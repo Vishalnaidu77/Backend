@@ -6,8 +6,7 @@ import { useAuth } from '../../auth/hooks/useAuth'
 
 const Followers = () => {
 
-    const { user, loading, setLoading, handleGetUser, handleFollowUser } = useUser()
-
+    const { user, handleGetUser, handleFollowUser } = useUser()
     const { currUser, handleGetMe, loading: authLoading } = useAuth()
 
     const getId = (value) => {
@@ -30,17 +29,12 @@ const Followers = () => {
 
         return true
     })
-    
+
     useEffect(() => {
         handleGetUser()
         handleGetMe()
     }, [])
 
-    useEffect(() => {
-        console.log("currUser updated:", currUser)
-    }, [currUser])
-
-    // Show loading if auth is loading or followers/following are not yet populated
     const isLoading = authLoading || (currUser && (!currUser.followers || !currUser.following))
 
     if (isLoading) {

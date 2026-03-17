@@ -3,6 +3,7 @@ import '../style/createpost.scss'
 import { usePost } from '../hooks/usePost'
 import { useNavigate } from 'react-router-dom'
 import { IoIosArrowBack } from "react-icons/io";
+import { BiImageAdd } from "react-icons/bi";
 
 const CreatePost = () => {
 
@@ -37,12 +38,15 @@ const CreatePost = () => {
         <div className="form-container">
             <h1>Create post</h1>
             <form onSubmit={handleSubmit}>
-                <label className='post-image-label' htmlFor="postImage">Select image</label>
-                <input ref={postImageRef} type="file" name='postImage' id='postImage' hidden/>
-                <input 
-                value={caption}
-                onChange={(e) => setCaption(e.target.value)}
-                type="text" name='caption' id='caption' placeholder='Enter Caption'/>
+                <div className="inputs">
+                    <label className='post-image-label' htmlFor="postImage"><BiImageAdd /></label>
+                    <input ref={postImageRef} type="file" name='postImage' id='postImage' hidden/>
+                    <textarea 
+                        value={caption}
+                        onChange={(e) => setCaption(e.target.value)}
+                        type="text" name='caption' id='caption' placeholder='Enter Caption'
+                    />
+                </div>
                 <button className='button primary-btn'>Create post</button>
             </form>
         </div>
