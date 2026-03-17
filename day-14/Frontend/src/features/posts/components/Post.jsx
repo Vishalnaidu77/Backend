@@ -3,7 +3,7 @@ import { FaHeart, FaRegBookmark, FaRegComment, FaRegHeart } from "react-icons/fa
 import { PiShareFat } from "react-icons/pi";
 import { BiMessageRounded } from "react-icons/bi";
 
-const Post = ({ user, post, handleLike, handleUnLike }) => {
+const Post = ({ user, post, handleLike, handleUnLike, handleSavePost }) => {
 
     const [showImageHeart, setShowImageHeart] = useState(false)
     const heartTimerRef = useRef(null)
@@ -75,7 +75,7 @@ const Post = ({ user, post, handleLike, handleUnLike }) => {
                 <button className='btn'><BiMessageRounded /></button>
                 <button className='btn'><PiShareFat /></button>
             </div>
-            <div className="right">
+            <div className="right" onClick={() => handleSavePost(post._id)}>
                 <button className='btn'><FaRegBookmark /></button>
             </div>
         </div>

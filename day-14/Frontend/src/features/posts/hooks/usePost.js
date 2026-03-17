@@ -1,10 +1,10 @@
 import { useContext } from "react";
-import { createPost, getFeed, likedPost, unLikedPost } from "../services/post.api";
+import { createPost, getFeed, likedPost, savePost, unLikedPost } from "../services/post.api";
 import { PostContext } from "../post.context";
 
 export const usePost = () => {
 
-    const { loading, setLoading, post, setPost, feed, setFeed } = useContext(PostContext)
+    const { loading, setLoading, post, setPost, feed, setFeed, savedPost, setSavedPost } = useContext(PostContext)
 
     const handleGetFeed = async () => {
         setLoading(true)
@@ -40,7 +40,13 @@ export const usePost = () => {
         )
     }
 
+    const handleSavePost = async (postId) => {
+        const res = await savePost(postId)
+        setSavedPost(res.post)
+        console.log("Post saved successfully");
+    }
+
     return{
-        loading, setLoading, post, setPost, feed, setFeed, handleGetFeed, handleCreatePost, handleLike, handleUnLike
+        loading, setLoading, post, setPost, feed, setFeed, handleGetFeed, handleCreatePost, handleLike, handleUnLike, handleSavePost
     }
 }

@@ -169,7 +169,7 @@ async function savePostController(req, res){
 
     if(postAlreadySaved){
         return res.status(400).json({
-            message: "You can't save one more twice."
+            message: "You can't save one post twice."
         })
     }
 

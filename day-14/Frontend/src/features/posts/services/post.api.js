@@ -32,3 +32,8 @@ export async function unLikedPost(postId){
     const res = await api.post(`/unlike/${postId}`)
     return res.data
 }
+
+export async function savePost(postId){
+    const res = await api.post(`/save/${postId}`)
+    return res.data
+}

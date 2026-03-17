@@ -7,7 +7,7 @@ import Followers from '../../followers/components/Followers'
 
 const Feed = () => {
 
-  const { feed, loading, handleGetFeed, handleLike, handleUnLike } = usePost()
+  const { feed, loading, handleGetFeed, handleLike, handleUnLike, handleSavePost } = usePost()
 
     useEffect(() => {
         handleGetFeed()
@@ -23,7 +23,7 @@ const Feed = () => {
         <div className="feed">
             <div className="posts">
                 {feed?.map(post => (
-                  <Post key={post._id} user={post.user} post={post} loading={loading} handleLike={handleLike} handleUnLike={handleUnLike}/>
+                  <Post key={post._id} user={post.user} post={post} loading={loading} handleLike={handleLike} handleUnLike={handleUnLike} handleSavePost={handleSavePost}/>
                 ))}
             </div>
         </div>
