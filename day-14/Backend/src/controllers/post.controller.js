@@ -147,16 +147,16 @@ async function getFeedController(req, res){
 }
 
 async function savePostController(req, res){
-    const user = req.user.username
+    const userId = req.user.id
     const postId = req.params.postId
     
-    if(!user){
+    if(!userId){
         return res.status(400).json({
             message: "User not authorized"
         })
     }
 
-    const postExists = await postModel.findOne({ _id: postId })
+    const postExists = await postModel.findOne({ _id: postId }).populate("user")
     console.log(postExists);
     
     if(!postExists){
@@ -165,7 +165,7 @@ async function savePostController(req, res){
         })
     }
 
-    const postAlreadySaved = await saveModel.findOne({ postId: postId })
+    const postAlreadySaved = await saveModel.findOne({ postId: postId, saveUser: userId })
 
     if(postAlreadySaved){
         return res.status(400).json({
@@ -174,7 +174,9 @@ async function savePostController(req, res){
     }
 
     const savePost = await saveModel.create({
-        user: user,
+        saveUser: userId,
+        postUserUsername: postExists.user.username,
+        postUserProfileImage: postExists.user.profileImage,
         caption: postExists.caption,
         imageUrl: postExists.imageUrl,
         postId: postExists._id
@@ -221,7 +223,7 @@ async function getSavedPostController(req, res) {
         })
     }
 
-    const posts = await saveModel.find({ user: username })
+    const posts = await saveModel.find({ username: username })
 
     if(!posts.length > 0){
         return res.status(404).json({

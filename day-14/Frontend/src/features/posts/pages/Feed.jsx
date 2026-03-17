@@ -8,7 +8,11 @@ import Followers from '../../followers/components/Followers'
 const Feed = () => {
 
   const { feed, loading, handleGetFeed, handleLike, handleUnLike, handleSavePost } = usePost()
-
+  
+  feed?.map(feed => {
+    console.log(feed);
+  })
+  
     useEffect(() => {
         handleGetFeed()
     }, [])

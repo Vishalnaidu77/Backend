@@ -4,7 +4,7 @@ import { PostContext } from "../post.context";
 
 export const usePost = () => {
 
-    const { loading, setLoading, post, setPost, feed, setFeed, setSavedPost, setAllSavePost } = useContext(PostContext)
+    const { loading, setLoading, post, setPost, feed, setFeed, setSavedPost, allSavePost, setAllSavePost } = useContext(PostContext)
 
     const handleGetFeed = async () => {
         setLoading(true)
@@ -53,6 +53,19 @@ export const usePost = () => {
     }
 
     return{
-        loading, setLoading, post, setPost, feed, setFeed, handleGetFeed, handleCreatePost, handleLike, handleUnLike, handleSavePost, handleGetSavePost
+        loading, 
+        setLoading, 
+        post, 
+        setPost, 
+        feed, 
+        setFeed, 
+        handleGetFeed, 
+        handleCreatePost, 
+        handleLike, 
+        handleUnLike, 
+        handleSavePost, 
+        handleGetSavePost, 
+        allSavePost, 
+        setAllSavePost
     }
 }

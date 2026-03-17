@@ -1,18 +1,14 @@
 const mongoose = require("mongoose")
 
 const saveSchema = new mongoose.Schema({
-    user: {
-        type: String,
+    saveUser: {
+        type: mongoose.Schema.Types.ObjectId,
         ref: "users"
     },
-    caption: {
-        type: String,
-        ref: "posts"
-    },
-    imageUrl: {
-        type: String,
-        ref: "posts"
-    },
+    postUserUsername: String,
+    postUserProfileImage: String,
+    caption: String,
+    imageUrl: String,
     postId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'posts'
