@@ -29,7 +29,7 @@ const Nav = () => {
   })
 
 
-  const { currUser } = useAuth()
+  const { currUser, handleLogout } = useAuth()
     const navigate = useNavigate()
 
     useEffect(() => {
@@ -112,7 +112,13 @@ const Nav = () => {
               {theme === 'dark' ? <IoSunnyOutline /> : <IoMoonSharp />}
               <h4>{theme === 'dark' ? 'Light Mode' : 'Dark Mode'}</h4>
             </div>
-            <div className="logout-btn setting-option">
+            <div 
+              className="logout-btn setting-option"
+              onClick={() => {
+                 handleLogout()
+                 navigate("/login")
+              }}
+            >
               <h4>Logout</h4>
             </div>
           </div>

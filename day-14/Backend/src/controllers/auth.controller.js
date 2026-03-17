@@ -117,8 +117,25 @@ async function getMeController(req, res) {
     })
 }
 
+async function logoutController(req, res){
+    const cookies = req.cookies;
+
+    if(!cookies?.token){
+        return res.status(401).json({
+            message: "Not logged in."
+        })
+    }
+    
+    req.clearCookie('token')
+
+    res.status(2000).json({
+        message: "User logged out."
+    })
+}
+
 module.exports = {
     registerController,
     loginController,
-    getMeController
+    getMeController,
+    logoutController
 }
