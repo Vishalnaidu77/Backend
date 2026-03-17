@@ -6,6 +6,7 @@ import AppLayout from './AppLayout'
 import './features/shared/global.scss'
 import Feed from './features/posts/pages/Feed'
 import CreatePost from './features/posts/pages/CreatePost'
+import SavedPost from './features/posts/pages/SavedPost'
 
 const App = () => {
 
@@ -29,6 +30,10 @@ const App = () => {
       {
         path: "/create-post",
         element: <CreatePost />
+      },
+      {
+        path: "/saved-post",
+        element: <SavedPost />
       }
     ]
   }

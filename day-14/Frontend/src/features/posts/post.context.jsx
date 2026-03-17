@@ -8,9 +8,10 @@ const PostProvider = ({ children }) => {
     const [post, setPost] = useState(null)
     const [feed , setFeed] = useState(null)
     const [savedPost, setSavedPost] = useState(null)
+    const [ allSavePost, setAllSavePost ] = useState(null)
 
   return (
-    <PostContext.Provider value={{ loading, setLoading, post, setPost, feed, setFeed, savedPost, setSavedPost }}> 
+    <PostContext.Provider value={{ loading, setLoading, post, setPost, feed, setFeed, savedPost, setSavedPost, allSavePost, setAllSavePost }}> 
         {children}
     </PostContext.Provider>
   )

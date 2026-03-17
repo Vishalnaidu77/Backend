@@ -147,7 +147,7 @@ async function getFeedController(req, res){
 }
 
 async function savePostController(req, res){
-    const user = req.user
+    const user = req.user.username
     const postId = req.params.postId
     
     if(!user){
@@ -174,7 +174,7 @@ async function savePostController(req, res){
     }
 
     const savePost = await saveModel.create({
-        user: postExists.user,
+        user: user,
         caption: postExists.caption,
         imageUrl: postExists.imageUrl,
         postId: postExists._id
@@ -186,6 +186,55 @@ async function savePostController(req, res){
     })
 }
 
+async function deleteSavePostController(req, res){
+    const user = req.user
+    const postId = req.params.postId
+    
+    if(!user){
+        return res.status(400).json({
+            message: "User not authorized"
+        })
+    }
+
+    const postExists = await postModel.findOne({ _id: postId })
+    console.log(postExists);
+    
+    if(!postExists){
+        return res.status(404).json({
+            message: "Post not found"
+        })
+    }
+
+    await saveModel.findOneAndDelete({ postId })
+
+    res.status(200).json({
+        message: "Post unsaved."
+    })
+}
+
+async function getSavedPostController(req, res) {
+    const username = req.user.username
+
+    if(!username){
+        return res.status(401).json({
+            message: "User not authorized"
+        })
+    }
+
+    const posts = await saveModel.find({ user: username })
+
+    if(!posts.length > 0){
+        return res.status(404).json({
+            message: "No saved post found of this user"
+        })
+    }
+
+    res.status(200).json({
+        message: "Fetched saved post successfully",
+        posts
+    })
+}
+
 module.exports = {
     createPostController,
     getPostController,
@@ -193,5 +242,7 @@ module.exports = {
     likedPostController,
     getFeedController,
     unLikedPostController,
-    savePostController
+    savePostController,
+    deleteSavePostController,
+    getSavedPostController
 }

@@ -30,6 +30,12 @@ postRouter.post("/unlike/:postid", identifyUser, postController.unLikedPostContr
 postRouter.get("/feed", identifyUser, postController.getFeedController)
 
 // Post api/posts/save/:postid
-postRouter.post("/save/:postId", identifyUser, postController.savePostController)
+postRouter.post("/save-post/:postId", identifyUser, postController.savePostController)
+
+// Post api/posts/delete-save-post/:postid
+postRouter.post("/unsave-post/:postId", identifyUser, postController.deleteSavePostController)
+
+// Post api/posts/get-saved-post/:postid
+postRouter.get("/get-saved-post/", identifyUser, postController.getSavedPostController)
 
 module.exports = postRouter;
