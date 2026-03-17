@@ -29,6 +29,8 @@
             width: 180px;
             flex-direction: column;
             gap: 1.5rem;
+            position: relative;
+            z-index: 99;
 
             .option{
                 display: flex;
@@ -41,7 +43,7 @@
 
                 h4{
                     position: absolute;
-                    left: -7%;
+                    left: 25%;
                     z-index: 0;
                     opacity: 0;
                     transition: all 0.5s ease;
