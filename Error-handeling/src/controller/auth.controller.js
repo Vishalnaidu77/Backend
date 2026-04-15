@@ -1,8 +1,10 @@
 export async function registerController(req, res, next) {
-    try {
-        throw new Error("User already exists");
-    } catch (err) {
-        err.status = 409;
-        next(err)
-    }
+
+    const { username, email, password } = req.body
+
+    res.status(200).json({
+        message: "User register successfully",
+        username,
+        email
+    })
 }
