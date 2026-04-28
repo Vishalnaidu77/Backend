@@ -1,12 +1,11 @@
-import "dotenv/config"
+import dotenv from 'dotenv/config'
 
-export function handleError(err, req, res, next){
-
+const handleError = (err, req, res, next) => {  
     const response = {
-        message: err.message
+        error: err.message
     }
 
-    if(process.env.NODE_ENVIRONMENT === "development"){
+    if(process.env.NODE_ENV === 'development'){
         response.stack = err.stack
     }
 
@@ -14,3 +13,5 @@ export function handleError(err, req, res, next){
         response
     })
 }
+
+export default handleError;
