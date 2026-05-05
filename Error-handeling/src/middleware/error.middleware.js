@@ -1,6 +1,7 @@
 import dotenv from 'dotenv/config'
 
-const handleError = (err, req, res, next) => {  
+const handleError = (err, req, res, next) => {     
+    
     const response = {
         error: err.message
     }
