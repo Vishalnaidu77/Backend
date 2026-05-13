@@ -4,17 +4,19 @@ import sendEmail from "../services/mail.service.js"
 export async function registerController(req, res) {
     const { username, email, password } = req.body
 
-    const isUserExists = await userModel.find({
+    const isUserExists = await userModel.findOne({
         $or: [{ username }, { email }]
     })
 
-    if(isUserExists === []){
+    if(isUserExists){
         return res.status(400).json({
             message: "User is already exist with this username or email.",
             success: false,
             err: "User already exists"
         })
     }
+
+    console.log(isUserExists);
 
     const user = await userModel.create({ username, email, password })
 
@@ -30,6 +32,9 @@ export async function registerController(req, res) {
     return res.status(201).json({
         message: "User registered successfully. Verification email sent.",
         success: true,
-        user
+        user: {
+            username: user.username,
+            email: user.email,
+        }
     })
 }
