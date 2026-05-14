@@ -26,8 +26,7 @@ const sendEmail = async ({to, subject, text, html}) => {
             html
         })
 
-        console.log(`Message sent to ${info.to}`);
-        console.log(`Preview URL: ${nodemailer.getTestMessageUrl(info)}`);
+        console.log(`Message sent to ${info.messageId}`);
     } catch (err) {
         console.log('Error sending email: ', err.message);
     }

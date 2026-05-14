@@ -32,3 +32,16 @@ export const registerValidation = [
         .withMessage('Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character'),
     validate
 ];
+
+export const loginValidation = [
+    body('email')
+        .trim()
+        .notEmpty().withMessage('Email is required')
+        .isEmail().withMessage('Email should valid Email address'),
+
+
+    body('password')
+        .notEmpty().withMessage('Password is required'),
+
+    validate
+]
