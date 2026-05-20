@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { getMeController, loginController, registerController, verifyEmail } from "../controllers/auth.controller.js";
+import { getMeController, loginController, registerController, resendVerifyEmail, verifyEmail } from "../controllers/auth.controller.js";
 import { loginValidation, registerValidation } from "../validators/auth.validator.js";
 import { verifyUser } from "../middleware/auth.middleware.js";
 
@@ -10,5 +10,6 @@ authRouter.post('/login', loginValidation, loginController)
 authRouter.get('/get-me', verifyUser, getMeController)
 
 authRouter.get('/verify-email', verifyEmail)
+authRouter.post('/resend-verify-email', resendVerifyEmail)
 
 export default authRouter;

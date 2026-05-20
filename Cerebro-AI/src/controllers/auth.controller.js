@@ -28,12 +28,50 @@ export async function registerController(req, res) {
     const emailResponse = await sendEmail({
         to: email,
         subject: "Welcome to Cerebro AI",
-        html: `<h3>Hi ${username},</h3>
-                <p>Welcome the the Cerebo AI.</p>
-                <p>Please verifi your email by clicking on the link given below</p>
-                <a href='http://localhost:8000/api/auth/verify-email?token=${emailVerificationToken}'>Verify Email</a>
-                <p>Welcome aboard!</p>
-            `
+        html: `
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: auto; padding: 20px; color: #333;">
+            
+            <h2 style="color: #111;">Welcome to Cerebro AI.</h2>
+
+            <p>Hi ${username},</p>
+
+            <p>
+                Thank you for registering with Cerebro AI.
+                Please verify your email address to activate your account.
+            </p>
+
+            <div style="margin: 30px 0;">
+                <a 
+                    href="http://localhost:8000/api/auth/verify-email?token=${emailVerificationToken}"
+                    style="
+                        background-color: #111827;
+                        color: #ffffff;
+                        padding: 12px 24px;
+                        text-decoration: none;
+                        border-radius: 6px;
+                        display: inline-block;
+                        font-weight: bold;
+                    "
+                >
+                    Verify Email
+                </a>
+            </div>
+
+            <p>This verification link will expire in 30 minutes.</p>
+
+            <p>
+                If you didn’t create this account, you can safely ignore this email.
+            </p>
+
+            <br />
+
+            <p>Welcome aboard!</p>
+
+            <p>
+                — Team Cerebro AI
+            </p>
+        </div>
+        `
     })
 
     return res.status(201).json({
@@ -131,5 +169,53 @@ export async function getMeController(req, res) {
         message: "Fetch user details successfully.",
         success: true,
         user
+    })
+}
+
+export async function resendVerifyEmail(req, res) {
+    const { email } = req.body
+
+    const user = await userModel.findOne({ email })
+    if(!user){
+        return res.status(401).json({
+            messsage: "Unauthorized user",
+            success: false,
+            err: "Unauthorized user"
+        })
+    }
+
+    if(user.verified){
+        return res.status(409).json({
+            message: "User already verified",
+            success: false,
+            err: "Already verified"
+        })
+    }
+
+    const emailVerificationToken = jwt.sign({
+        email: user.email
+    }, process.env.JWT_SECRET)
+
+    sendEmail({
+        to: email,
+        subject: "New verification link",
+        html: `
+            <div style="font-family: Arial, sans-serif; max-width: 600px; margin: auto; padding: 20px; color: #333;"> 
+                <h2 style="color: #111;">Verify Your Email</h2> 
+                <p>Hi ${user.username},</p> 
+                <p> You requested a new email verification link for your Cerebro AI account. </p> 
+                <div style="margin: 30px 0;"> 
+                    <a href="http://localhost:8000/api/auth/verify-email?token=${emailVerificationToken}" style=" background-color: #111827; color: #ffffff; padding: 12px 24px; text-decoration: none; border-radius: 6px; display: inline-block; font-weight: bold; " > Verify Email </a> 
+                </div> <p>This link will expire in 30 minutes.</p> 
+                <p> If you didn’t request this email, you can safely ignore it. </p> 
+                <br /> 
+                <p> — Team Cerebro AI </p> 
+            </div>
+        `
+    })
+
+    res.status(200).json({
+        message: "Resend verification link successful",
+        success: true
     })
 }
