@@ -156,7 +156,6 @@ export async function getMeController(req, res) {
     const userId = req.userId
 
     const user = await userModel.findById(userId)
-    console.log(req.userId);
 
     if(!user){
         return res.status(401).json({
