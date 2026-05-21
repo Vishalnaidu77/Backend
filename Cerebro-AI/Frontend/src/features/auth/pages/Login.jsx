@@ -1,10 +1,14 @@
 import React, { useState } from 'react'
 import useAuth from '../hooks/useAuth';
 import { useNavigate } from 'react-router';
+import { useSelector } from 'react-redux';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+  const { user } = useSelector(state => state.auth)
+  const  { loading } = useSelector(state => state.auth)
 
   const { handleLogin } = useAuth()
   const navigate = useNavigate()
@@ -15,6 +19,20 @@ const Login = () => {
     await handleLogin({ email, password})
     navigate("/")
   };
+
+  if(!loading && user){
+    return (
+        <div>
+            <h1>Welcome back {user.name}</h1>
+            <button 
+                onClick={() => navigate("/")}
+                className='bg-blue-900 text-white p-2 rounded cursor-pointer'
+            >
+                Get access Cerebro
+            </button>
+        </div>
+    )
+  }
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-950 px-4">
