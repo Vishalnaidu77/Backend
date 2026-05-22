@@ -123,6 +123,10 @@ export async function loginController(req, res) {
     res.status(200).json({
         message: "User logged in successfully",
         success: false,
+        user: {
+            email: user.email,
+            username: user.username
+        }
     })
 }
 
